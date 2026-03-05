@@ -1,0 +1,14 @@
+@use "@/styles/device.scss";
+@use "@/styles/unit.scss";
+
+.form {
+    --color-flat-icon: var(--color-form-input-icon);
+
+    display: flex;
+    flex-direction: column;
+    gap: unit.rem(22);
+
+    @include device.mobile {
+        gap: unit.rem(10);
+    }
+}

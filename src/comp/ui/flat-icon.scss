@@ -1,0 +1,13 @@
+@use "@/styles/device.scss";
+
+.flat-icon {
+    width: 30px;
+    height: 30px;
+}
+
+@include device.mobile {
+    .flat-icon {
+        width: 30px;
+        height: 30px;
+    }
+}

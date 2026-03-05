@@ -6,5 +6,9 @@ type Params = {
 
 export default function StreamPage() {
     const { username } = useParams<Params>();
-    return <h1>{username}</h1>;
+    return (
+        <main className="cnt">
+            <h1>{username}</h1>
+        </main>
+    );
 }

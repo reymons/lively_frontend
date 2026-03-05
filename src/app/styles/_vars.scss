@@ -1,15 +1,23 @@
-// Global variables
-
 @use "@/styles/unit.scss";
 @use "@/styles/device.scss";
 
 html {
     --modal-root-z-index: 996;
 
+    --color-red-300: hsl(355, 76%, 61%);
+
     --color-bg-primary: black;
+    --color-bg-secondary: white;
+    --color-bg-tertiary: lightgrey;
     --color-text-primary: white;
+    --color-text-secondary: black;
+
+    --color-danger: var(--color-red-300);
+    --color-flat-icon: var(--color-bg-secondary);
 
     --a11y-outline: 3.5px solid #005fcc;
+
+    --border-radius-primary: 0.25em;
 
     $offsetX: 16;
     --container-offset-x: #{unit.rem($offsetX)};

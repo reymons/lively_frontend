@@ -1,0 +1,19 @@
+@use "@/styles/unit.scss";
+@use "@/styles/device.scss";
+@use "./styles/form.scss";
+
+.label {
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: unit.rem(8);
+    line-height: 1.1;
+
+    &.error {
+        color: form.$color-error;
+    }
+
+    @include device.mobile {
+        font-size: unit.rem(12);
+        margin-bottom: unit.rem(6);
+    }
+}

@@ -1,0 +1,54 @@
+@use "@/styles/unit.scss";
+@use "@/styles/device.scss";
+@use "./styles/form.scss";
+
+.wrapper {
+    --offset-x: #{unit.rem(18)};
+    @extend %element;
+    display: flex;
+    align-items: center;
+    gap: unit.rem(4);
+    justify-content: space-between;
+    position: relative;
+    background-color: transparent;
+
+    &.error {
+        border-color: form.$color-error;
+    }
+
+    @include device.mobile {
+        --offset-x: #{unit.rem(14)};
+    }
+
+    // TODO: figure out why this sheiße doesn't work
+    //
+    //&:has(input:focus-visible) {
+    //    outline: var(--a11y-outline);
+    //}
+
+    input {
+        width: 100%;
+        flex-grow: 1;
+        border: none;
+        outline: none;
+        height: unit.rem(50);
+        padding: 0 var(--offset-x);
+        border-radius: inherit;
+
+        &::placeholder {
+            color: form.$color-placeholder;
+        }
+
+        @include device.mobile {
+            height: unit.rem(40);
+        }
+    }
+}
+
+.sideContent {
+    position: absolute;
+    right: var(--offset-x);
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+}

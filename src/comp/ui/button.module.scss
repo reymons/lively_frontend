@@ -1,0 +1,97 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:string";
+@use "@/styles/unit.scss";
+@use "@/styles/device.scss";
+
+$sizeData: (
+    "sm": (
+        "desktop": (
+            "height": unit.rem(32),
+            "padding": "0 #{unit.rem(16)}",
+            "font-size": unit.rem(12),
+        ),
+        "mobile": (
+            "height": unit.rem(32),
+            "padding": "0 #{unit.rem(22)}",
+            "font-size": unit.rem(12),
+        ),
+    ),
+    "md": (
+        "desktop": (
+            "height": unit.rem(50),
+            "padding": "0 #{unit.rem(40)}",
+            "font-size": unit.rem(16),
+        ),
+        "mobile": (
+            "height": unit.rem(40),
+            "padding": "0 #{unit.rem(16)}",
+            "font-size": unit.rem(12),
+        ),
+    ),
+);
+
+$colorData: (
+    "primary": (
+        "background-color": "var(--color-bg-secondary)",
+        "color": "var(--color-text-secondary)",
+        "active": (
+            "background-color": "var(--color-bg-tertiary)",
+        ),
+    ),
+);
+
+.button {
+    border: none;
+    border-radius: var(--border-radius-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    font-weight: 700;
+    max-width: 100%;
+    text-decoration: none;
+
+    &.stretch {
+        width: 100%;
+    }
+
+    &:not(:disabled) {
+        cursor: pointer;
+    }
+
+    @each $kind, $styles in $colorData {
+        &[data-kind="#{$kind}"] {
+            @each $key, $value in $styles {
+                @if $key == "active" {
+                    transition: background-color 150ms ease-in-out;
+                    &:active {
+                        @each $key, $value in $value {
+                            #{$key}: string.unquote($value);
+                        }
+                    }
+                } @else {
+                    #{$key}: string.unquote($value);
+                }
+            }
+        }
+    }
+
+    @each $size, $devices in $sizeData {
+        &[data-size="#{$size}"] {
+            @each $device, $styles in $devices {
+                @if $device == "desktop" {
+                    @each $key, $value in $styles {
+                        #{$key}: string.unquote($value);
+                    }
+                } @else {
+                    @include device.mobile {
+                        @each $key, $value in $styles {
+                            #{$key}: string.unquote($value);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

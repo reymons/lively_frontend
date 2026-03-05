@@ -1,0 +1,17 @@
+@use "@/styles/unit.scss";
+@use "@/styles/device.scss";
+
+$color-placeholder: grey;
+$color-error: var(--color-danger);
+
+%element {
+    border-radius: var(--border-radius-primary);
+    border: 1px solid $color-placeholder;
+    background-color: white;
+    font-size: unit.rem(16);
+    color: black;
+
+    @include device.mobile {
+        font-size: unit.rem(12);
+    }
+}
