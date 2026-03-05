@@ -1,0 +1,12 @@
+// Accessibility-related styles
+
+*:focus-visible {
+    outline: var(--a11y-outline);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition-duration: 0 !important;
+    }
+}

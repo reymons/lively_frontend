@@ -1,0 +1,101 @@
+@use "@/styles/device.scss";
+@use "@/styles/unit.scss";
+
+.wrapper {
+    --anim-timing: ease;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 75%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    animation: background var(--anim-timing) forwards;
+    animation-duration: var(--anim-duration);
+
+    > * {
+        animation-name: pop-up;
+        animation-fill-mode: forwards;
+        animation-duration: var(--anim-duration);
+        animation-timing-function: var(--anim-timing);
+    }
+
+    &.closing {
+        animation-name: background-reverse;
+
+        > * {
+            animation-name: pop-up-reverse;
+        }
+    }
+
+    @include device.mobile {
+        align-items: flex-end;
+        justify-content: unset;
+
+        > * {
+            width: 100% !important;
+            border-radius: var(--border-radius-md) var(--border-radius-md) 0 0 !important;
+            padding: var(--container-offset-x) !important;
+        }
+    }
+}
+
+@keyframes background {
+    0% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 75%);
+    }
+}
+
+@keyframes background-reverse {
+    0% {
+        background-color: rgba(0, 0, 0, 75%);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+@keyframes pop-up {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes pop-up-reverse {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@include device.mobile {
+    @keyframes pop-up {
+        0% {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes pop-up-reverse {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+// Global variables
+
+@use "@/styles/unit.scss";
+@use "@/styles/device.scss";
+
+html {
+    --modal-root-z-index: 996;
+
+    --color-bg-primary: black;
+    --color-text-primary: white;
+
+    --a11y-outline: 3.5px solid #005fcc;
+
+    $offsetX: 16;
+    --container-offset-x: #{unit.rem($offsetX)};
+    --container-width: #{unit.rem(1540 - $offsetX * 2)};
+
+    --main-header-height: #{unit.rem(80)};
+    --main-header-z-index: 100;
+
+    @include device.mobile {
+        --main-header-height: #{unit.rem(62)};
+    }
+}

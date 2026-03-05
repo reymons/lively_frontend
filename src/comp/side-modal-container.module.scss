@@ -1,0 +1,58 @@
+@use "@/styles/device.scss";
+
+.wrapper {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    animation: background var(--anim-duration) ease forwards;
+
+    > div {
+        animation: pop-up var(--anim-duration) ease forwards;
+        background-color: var(--color-white);
+        width: 75vw;
+        height: 100%;
+    }
+
+    &.closing {
+        animation-name: background-reverse;
+        > div {
+            animation-name: pop-up-reverse;
+        }
+    }
+}
+
+@keyframes pop-up {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes pop-up-reverse {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes background {
+    0% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 75%);
+    }
+}
+
+@keyframes background-reverse {
+    0% {
+        background-color: rgba(0, 0, 0, 75%);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}

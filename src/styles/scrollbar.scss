@@ -1,0 +1,37 @@
+@mixin hide {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@mixin custom($trackMargin: 0) {
+    $scrollbar-width: 5px;
+    $scrollbar-thumb-color: #6a8095a6;
+    $scrollbar-track-color: #6a809521;
+
+    & {
+        overflow: auto;
+    }
+
+    @media (min-width: 1025px) {
+        & {
+            scrollbar-width: thin;
+            scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
+        }
+        &::-webkit-scrollbar {
+            width: $scrollbar-width;
+        }
+        &::-webkit-scrollbar-track {
+            background-color: $scrollbar-track-color;
+            @if ($trackMargin) {
+                margin: $trackMargin 0;
+            }
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: $scrollbar-thumb-color;
+            border-radius: 3px;
+        }
+    }
+}
