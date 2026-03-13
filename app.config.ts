@@ -22,7 +22,7 @@ function getPages(data: Record<string, any>): string[] {
 
 export default {
     env: {
-        //HTTP_CLIENT_BASE_URL: process.env.HTTP_CLIENT_BASE_URL,
+        HTTP_CLIENT_BASE_URL: process.env.HTTP_CLIENT_BASE_URL,
     },
     // It's needed for gh pages so that you can access any pages via an address bar
     // Do not specify the home page since it's handeled by default

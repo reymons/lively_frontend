@@ -1,6 +1,6 @@
 import "./flat-icon.scss";
 
-type FlatIconType = "arrow-left";
+type FlatIconType = "arrow-left" | "eye" | "eye-crossed" | "lock" | "lock-unlocked" | "copy";
 
 type Props = {
     type: FlatIconType;

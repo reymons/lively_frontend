@@ -1,0 +1,36 @@
+@use "@/styles/unit.scss";
+@use "@/styles/device.scss";
+
+.title {
+    --flat-icon-size: #{unit.rem(30)};
+
+    position: relative;
+    text-align: center;
+
+    button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: calc(100% + unit.rem(24));
+    }
+
+    @include device.mobile {
+        --flat-icon-size: #{unit.rem(24)};
+
+        h1 {
+            font-size: unit.rem(24);
+        }
+    }
+
+    @media (max-width: 440px) {
+        text-align: left;
+
+        button {
+            top: unset;
+            bottom: calc(100% + unit.rem(8));
+            transform: unset;
+            right: unset;
+            left: 0;
+        }
+    }
+}

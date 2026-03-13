@@ -11,4 +11,8 @@
     @include device.mobile {
         gap: unit.rem(10);
     }
+
+    > button[type="submit"] {
+        margin-top: unit.rem(10);
+    }
 }

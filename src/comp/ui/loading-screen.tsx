@@ -4,7 +4,7 @@ export default function LoadingScreen() {
             aria-label="Loading the page, please wait..."
             aria-live="polite"
             aria-busy
-            style={{ height: "100svh", backgroundColor: "var(--color-secondary)" }}
+            style={{ height: "100svh", backgroundColor: "var(--color-bg-primary)" }}
             data-testid="loading-screen"
         />
     );

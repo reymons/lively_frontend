@@ -1,11 +1,16 @@
-import { HTTP_CLIENT_BASE_URL } from "@/config/env";
+import Cookie from "js-cookie";
+import { HTTP_CLIENT_BASE_URL, ACCESS_TOKEN_COOKIE } from "@/config/env";
 import axios from "axios";
 
 export const clientV1 = axios.create({
     baseURL: HTTP_CLIENT_BASE_URL + "/api/v1",
 });
 
-clientV1.interceptors.request.use(async cfg => {
+clientV1.interceptors.request.use(cfg => {
+    const token = Cookie.get(ACCESS_TOKEN_COOKIE);
+    if (token) {
+        cfg.headers.set("Authorization", `Bearer ${token}`);
+    }
     cfg.headers.set("Content-Type", "application/json");
     cfg.withCredentials = true;
     return cfg;

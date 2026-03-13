@@ -6,14 +6,14 @@ type Props = {
 
 // Page container
 // Use it to wrap your pages to provide some meta info
-export const Page = ({ children, title, description }: Props) => {
+export default function Page({ children, title, description }: Props) {
     return (
         <>
-            <title>{`Open Banking | ${title}`}</title>
+            <title>{`Lively | ${title}`}</title>
             <meta name="description" content={description} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
             {children}
         </>
     );
-};
+}

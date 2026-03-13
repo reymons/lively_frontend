@@ -5,6 +5,7 @@ html {
     --modal-root-z-index: 996;
 
     --color-red-300: hsl(355, 76%, 61%);
+    --color-green-300: hsl(108 76% 61%);
 
     --color-bg-primary: black;
     --color-bg-secondary: white;
@@ -13,7 +14,8 @@ html {
     --color-text-secondary: black;
 
     --color-danger: var(--color-red-300);
-    --color-flat-icon: var(--color-bg-secondary);
+    --color-success: var(--color-green-300);
+    --color-flat-icon: var(--color-bg-primary);
 
     --a11y-outline: 3.5px solid #005fcc;
 
@@ -26,7 +28,10 @@ html {
     --main-header-height: #{unit.rem(80)};
     --main-header-z-index: 100;
 
+    --flat-icon-size: #{unit.rem(18)};
+
     @include device.mobile {
         --main-header-height: #{unit.rem(62)};
+        --flat-icon-size: #{unit.rem(16)};
     }
 }

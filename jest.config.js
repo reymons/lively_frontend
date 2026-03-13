@@ -4,7 +4,10 @@ swcCfg.jsc.target = "esnext";
 
 module.exports = {
     testEnvironment: "jest-fixed-jsdom",
-    setupFilesAfterEnv: ["<rootDir>/src/testing/setup-after-env.ts"],
+    setupFilesAfterEnv: [
+        "<rootDir>/src/testing/polyfills.ts",
+        "<rootDir>/src/testing/setup-after-env.ts",
+    ],
     transform: {
         "^.+\\.(t|j)sx?$": ["@swc/jest", swcCfg],
         "^.+\\.(svg|scss|css|png|jpg|woff2)$": "jest-transform-stub",

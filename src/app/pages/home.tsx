@@ -6,123 +6,63 @@ import cn from "classnames";
 import { Form, SubmitButton, Input } from "@ui/form";
 import paths from "@/config/paths";
 import Button from "@ui/button";
-import FlatIcon from "@ui/flat-icon";
+import Heading from "@ui/heading";
+import Page from "@/comp/layout/page";
 import sl from "./home.module.scss";
 
 export default function HomePage() {
-    const [formType, setFormType] = useState<"watch-stream" | "stream" | "none">("none");
-    const [username, setUsername] = useState("");
-    const navigate = useNavigate();
+    const [watchStream, setWatchStream] = useState(false);
 
     return (
-        <main className={cn(sl.wrapper, "cnt")}>
-            <div className={sl.title}>
-                {formType !== "none" && (
-                    <button
-                        className="icon-btn"
-                        type="button"
-                        onClick={() => {
-                            setFormType("none");
-                            setUsername("");
-                        }}
-                    >
-                        <FlatIcon type="arrow-left" />
-                    </button>
+        <Page title="Home" description="">
+            <main className={cn(sl.wrapper, "cnt")}>
+                <Heading withReturn={watchStream} onReturn={() => setWatchStream(false)}>
+                    {watchStream ? "What is the streamer's name?" : "What would you like to do?"}
+                </Heading>
+                {!watchStream && (
+                    <>
+                        <div className={sl.btns}>
+                            <Button onClick={() => setWatchStream(true)}>Watch a stream</Button>
+                            <Button asLink to={paths.login.path}>
+                                Stream
+                            </Button>
+                        </div>
+                    </>
                 )}
-                <h1>
-                    {formType === "none"
-                        ? "What would you like to do?"
-                        : formType === "watch-stream"
-                          ? "What is the streamer's username?"
-                          : username
-                            ? "Stream set-up"
-                            : "Type in your desired username"}
-                </h1>
+                {watchStream && <WatchStreamFlow />}
+            </main>
+        </Page>
+    );
+}
+
+function WatchStreamFlow() {
+    const navigate = useNavigate();
+    const schema = yup.object({
+        username: yup.string().required().label("Username"),
+    });
+
+    const handleSubmit = async (data: InferType<typeof schema>) => {
+        navigate(paths.stream.get(data.username));
+    };
+
+    return (
+        <>
+            <div className={sl.formWrapper}>
+                <Form schema={schema} defaultValues={{ username: "" }} onSubmit={handleSubmit}>
+                    {({ register, formState }) => (
+                        <>
+                            <Input
+                                reg={register("username")}
+                                label="Username"
+                                error={formState.errors.username}
+                                placeholder="Enter here"
+                                autoComplete="off"
+                            />
+                            <SubmitButton>Watch</SubmitButton>
+                        </>
+                    )}
+                </Form>
             </div>
-            {formType === "none" && (
-                <div className={sl.btns}>
-                    <Button onClick={() => setFormType("watch-stream")}>Watch a stream</Button>
-                    <Button onClick={() => setFormType("stream")}>Stream</Button>
-                </div>
-            )}
-            {formType !== "none" && (
-                <div className={sl.formWrapper}>
-                    {formType === "watch-stream" && (
-                        <WatchStreamForm
-                            onSuccess={username => navigate(paths.stream.get(username))}
-                        />
-                    )}
-                    {formType === "stream" && !username && (
-                        <StreamForm onSuccess={username => setUsername(username)} />
-                    )}
-                </div>
-            )}
-            {username && (
-                <div className={sl.usernameInfo}>
-                    <p>
-                        Specify the provided URL in your streaming application. After that, you can
-                        start streaming
-                    </p>
-                    <p className={sl.streamUrl}>
-                        rtmps://{location.hostname}:1935/streams/{username}
-                    </p>
-                    <Button className={sl.streamBtn} asLink to={paths.stream.get(username)}>
-                        Go to my stream
-                    </Button>
-                </div>
-            )}
-        </main>
-    );
-}
-
-function WatchStreamForm({ onSuccess }: { onSuccess: (username: string) => void }) {
-    const schema = yup.object({
-        username: yup.string().required().label("Username"),
-    });
-
-    const handleSubmit = async (data: InferType<typeof schema>) => {
-        onSuccess(data.username);
-    };
-
-    return (
-        <Form schema={schema} defaultValues={{ username: "" }} onSubmit={handleSubmit}>
-            {({ register, formState }) => (
-                <>
-                    <Input
-                        reg={register("username")}
-                        error={formState.errors.username}
-                        placeholder="Enter here"
-                        autoComplete="off"
-                    />
-                    <SubmitButton>Watch</SubmitButton>
-                </>
-            )}
-        </Form>
-    );
-}
-
-function StreamForm({ onSuccess }: { onSuccess: (username: string) => void }) {
-    const schema = yup.object({
-        username: yup.string().required().label("Username"),
-    });
-
-    const handleSubmit = async (data: InferType<typeof schema>) => {
-        onSuccess(data.username);
-    };
-
-    return (
-        <Form schema={schema} defaultValues={{ username: "" }} onSubmit={handleSubmit}>
-            {({ register, formState }) => (
-                <>
-                    <Input
-                        reg={register("username")}
-                        error={formState.errors.username}
-                        placeholder="Enter here"
-                        autoComplete="off"
-                    />
-                    <SubmitButton>Continue</SubmitButton>
-                </>
-            )}
-        </Form>
+        </>
     );
 }

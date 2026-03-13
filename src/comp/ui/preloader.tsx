@@ -19,7 +19,7 @@ export default function Preloader() {
                 // @ts-expect-error: 'transformOrigin' exists for circle element
                 transformOrigin="center"
                 fill="none"
-                stroke="url(#a8)"
+                stroke="var(--color-bg-primary)"
                 strokeWidth="15"
                 strokeLinecap="round"
                 strokeDasharray="200 1000"
@@ -44,7 +44,7 @@ export default function Preloader() {
                 transformOrigin="center"
                 fill="none"
                 opacity=".2"
-                stroke="#FFFFFF"
+                stroke="var(--color-bg-primary)"
                 strokeWidth="15"
                 strokeLinecap="round"
                 cx="100"
