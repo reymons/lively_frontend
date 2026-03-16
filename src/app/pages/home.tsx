@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import * as yup from "yup";
 import { type InferType } from "yup";
 import cn from "classnames";
@@ -12,6 +12,12 @@ import sl from "./home.module.scss";
 
 export default function HomePage() {
     const [watchStream, setWatchStream] = useState(false);
+
+    const query = new URLSearchParams(useLocation().search);
+    const username = query.get("u");
+    if (username) {
+        return <Navigate to={paths.stream.get(username)} />;
+    }
 
     return (
         <Page title="Home" description="">
