@@ -5,6 +5,7 @@ import { useStreamKey } from "@/stores/stream-key";
 import { useUser } from "@/stores/user";
 import { numToKs, StreamDisplay, streamStatus, useViewers } from "@/features/streaming";
 import { usePublicUser } from "@/stores/public-user";
+import { RTMP_BASE_URL } from "@/config/env";
 import SecretDisplay from "@ui/secret-display";
 import FlatIcon from "@ui/flat-icon";
 import sl from "./stream.module.scss";
@@ -27,7 +28,7 @@ export default function StreamPage() {
                     <div className={sl.sk}>
                         <p className="fs-lg fsm-sm">Your streaming URL</p>
                         <SecretDisplay
-                            base={`rtmps://${location.hostname}:1935/live/`}
+                            base={RTMP_BASE_URL}
                             secret={sk.stream_key}
                             visibleStart={6}
                             visibleEnd={5}
@@ -64,6 +65,9 @@ function Heading({ username }: { username: string }) {
 
 function Viewers({ userID }: { userID: number | undefined }) {
     const viewers = useViewers(userID);
+    const status = useAtomValue(streamStatus);
+
+    if (status !== "connected") return null;
 
     return (
         <div className={sl.viewers} title="Viewer count">

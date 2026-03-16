@@ -1,4 +1,4 @@
-import { paths } from "./src/config/paths";
+import paths from "./src/config/paths";
 
 function getPages(data: Record<string, any>): string[] {
     const stack: Record<string, any>[] = [data];
@@ -23,6 +23,8 @@ function getPages(data: Record<string, any>): string[] {
 export default {
     env: {
         HTTP_CLIENT_BASE_URL: process.env.HTTP_CLIENT_BASE_URL,
+        SOCKET_CLIENT_BASE_URL: process.env.SOCKET_CLIENT_BASE_URL,
+        RTMP_BASE_URL: process.env.RTMP_BASE_URL,
     },
     // It's needed for gh pages so that you can access any pages via an address bar
     // Do not specify the home page since it's handeled by default

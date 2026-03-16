@@ -1,11 +1,13 @@
 import { createContext, createElement, useContext } from "react";
 import { Socket } from "../socket";
 import { InboundMessages, OutboundMessages } from "./message";
+import { SOCKET_CLIENT_BASE_URL } from "@/config/env";
 
 const socket = new Socket<InboundMessages, OutboundMessages>({
     onError: err => console.error(err),
 });
-socket.connect(`ws://${location.hostname}:6767/ws/main`);
+
+socket.connect(`${SOCKET_CLIENT_BASE_URL}/ws/main`);
 
 const SocketContext = createContext<typeof socket | null>(null);
 

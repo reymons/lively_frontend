@@ -2,6 +2,7 @@ import paths from "@/config/paths";
 import { RegisterForm } from "@/features/auth";
 import { useStreamKey } from "@/stores/stream-key";
 import { useUser } from "@/stores/user";
+import { RTMP_BASE_URL } from "@/config/env";
 import Page from "@/comp/layout/page";
 import AuthPageLayout from "@/comp/layout/auth-page-layout";
 import Button from "@ui/button";
@@ -31,7 +32,7 @@ export default function RegisterPage() {
                             can start streaming. Do not share this URL with anybody
                         </p>
                         <SecretDisplay
-                            base={`rtmps://${location.hostname}:1935/live/`}
+                            base={RTMP_BASE_URL}
                             secret={sk}
                             visibleStart={6}
                             visibleEnd={5}

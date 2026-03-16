@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { useSetAtom, useStore } from "jotai";
 import { WSStreaming } from "../lib/streaming";
 import { streamStatus } from "../store";
+import { SOCKET_CLIENT_BASE_URL } from "@/config/env";
 
 type Context = {
     audioCtx: AudioContext | null;
@@ -94,8 +95,7 @@ export function useCanvasStream(canvasRef: React.RefObject<HTMLCanvasElement | n
     }, [canvasRef, ctx]);
 
     const connect = useCallback(
-        (userId: number) =>
-            streaming.connect(`ws://${location.hostname}:6767/ws/streams/${userId}`),
+        (userId: number) => streaming.connect(`${SOCKET_CLIENT_BASE_URL}/ws/streams/${userId}`),
         [streaming]
     );
 
