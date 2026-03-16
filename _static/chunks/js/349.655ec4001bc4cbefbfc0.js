@@ -83,6 +83,13 @@ function _async_to_generator(fn) {
 
 function HomePage() {
     const [watchStream, setWatchStream] = (0,react.useState)(false);
+    const query = new URLSearchParams((0,chunk_LFPYN7LY/* useLocation */.zy)().search);
+    const username = query.get("u");
+    if (username) {
+        return /*#__PURE__*/ (0,jsx_runtime.jsx)(chunk_LFPYN7LY/* Navigate */.C5, {
+            to: paths/* default */.A.stream.get(username)
+        });
+    }
     return /*#__PURE__*/ (0,jsx_runtime.jsx)(page/* default */.A, {
         title: "Home",
         description: "",
