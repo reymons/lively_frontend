@@ -1,3 +1,4 @@
+import { SocketProvider } from "@/lib/client/ws-main";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 type Props = {
@@ -7,5 +8,9 @@ type Props = {
 const queryClient = new QueryClient();
 
 export default function AppProvider({ children }: Props) {
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+    return (
+        <QueryClientProvider client={queryClient}>
+            <SocketProvider>{children}</SocketProvider>
+        </QueryClientProvider>
+    );
 }

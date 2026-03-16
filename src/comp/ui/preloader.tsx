@@ -1,4 +1,8 @@
-export default function Preloader() {
+type Props = {
+    color?: "primary" | "secondary";
+};
+
+export default function Preloader({ color = "primary" }: Props) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={30} height={30} viewBox="0 0 200 200">
             <radialGradient
@@ -19,7 +23,7 @@ export default function Preloader() {
                 // @ts-expect-error: 'transformOrigin' exists for circle element
                 transformOrigin="center"
                 fill="none"
-                stroke="var(--color-bg-primary)"
+                stroke={`var(--color-bg-${color})`}
                 strokeWidth="15"
                 strokeLinecap="round"
                 strokeDasharray="200 1000"

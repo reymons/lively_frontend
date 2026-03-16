@@ -5,6 +5,7 @@ html {
     --modal-root-z-index: 996;
 
     --color-red-300: hsl(355, 76%, 61%);
+    --color-red-400: hsl(355, 60%, 51%);
     --color-green-300: hsl(108 76% 61%);
 
     --color-bg-primary: black;
@@ -23,7 +24,7 @@ html {
 
     $offsetX: 16;
     --container-offset-x: #{unit.rem($offsetX)};
-    --container-width: #{unit.rem(1540 - $offsetX * 2)};
+    --container-width: #{unit.rem(1800 - $offsetX * 2)};
 
     --main-header-height: #{unit.rem(80)};
     --main-header-z-index: 100;

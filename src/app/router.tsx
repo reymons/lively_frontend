@@ -17,9 +17,9 @@ export default function AppRouter() {
             <Suspense fallback={<LoadingScreen />}>
                 <Routes>
                     <Route path={paths.home.path} Component={MainLayout}>
+                        <Route index Component={HomePage} />
                         <Route path="/:username" Component={StreamPage} />
                         <Route Component={GuestOnly}>
-                            <Route index Component={HomePage} />
                             <Route path="/login" Component={LoginPage} />
                             <Route path="/register" Component={RegisterPage} />
                         </Route>

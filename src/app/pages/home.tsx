@@ -46,23 +46,21 @@ function WatchStreamFlow() {
     };
 
     return (
-        <>
-            <div className={sl.formWrapper}>
-                <Form schema={schema} defaultValues={{ username: "" }} onSubmit={handleSubmit}>
-                    {({ register, formState }) => (
-                        <>
-                            <Input
-                                reg={register("username")}
-                                label="Username"
-                                error={formState.errors.username}
-                                placeholder="Enter here"
-                                autoComplete="off"
-                            />
-                            <SubmitButton>Watch</SubmitButton>
-                        </>
-                    )}
-                </Form>
-            </div>
-        </>
+        <div className={sl.formWrapper}>
+            <Form schema={schema} defaultValues={{ username: "" }} onSubmit={handleSubmit}>
+                {({ register, formState }) => (
+                    <>
+                        <Input
+                            reg={register("username")}
+                            label="Username"
+                            error={formState.errors.username}
+                            placeholder="Enter here"
+                            autoComplete="off"
+                        />
+                        <SubmitButton>Watch</SubmitButton>
+                    </>
+                )}
+            </Form>
+        </div>
     );
 }

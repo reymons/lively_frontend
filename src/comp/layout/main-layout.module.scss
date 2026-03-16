@@ -21,6 +21,7 @@
     height: var(--main-header-height);
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     @include device.mobile {
         font-size: unit.rem(24);
@@ -29,4 +30,27 @@
 
 .logo {
     text-decoration: none;
+}
+
+.userProfile {
+    width: unit.rem(40);
+    height: unit.rem(40);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+
+    @include device.mobile {
+        width: unit.rem(32);
+        height: unit.rem(32);
+
+        img {
+            width: 25px;
+            height: 25px;
+        }
+    }
 }

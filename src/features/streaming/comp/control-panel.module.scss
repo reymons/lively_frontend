@@ -1,0 +1,44 @@
+@use "@/styles/unit.scss";
+
+.wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: unit.rem(50);
+
+    &:hover > .panel {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+.panel {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    transform: translateY(10%);
+    opacity: 0;
+    transition:
+        transform 150ms ease-in,
+        opacity 150ms ease-in;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 unit.rem(8);
+}
+
+.left,
+.right {
+    display: inline-flex;
+
+    > * {
+        padding: unit.rem(8) unit.rem(16);
+        border-radius: 25px;
+        transition: background-color 150ms ease-in;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+    }
+}

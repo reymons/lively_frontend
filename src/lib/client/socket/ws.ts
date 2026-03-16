@@ -47,7 +47,7 @@ export class Socket<
 
     constructor(conf: SocketConfig<In>) {
         this.onErrorHandler = conf.onError;
-        this.reconnectTimeout = conf.reconnectTimeout || 5;
+        this.reconnectTimeout = conf.reconnectTimeout || 2000;
         this.validators = conf.validators ? { ...conf.validators } : {};
     }
 
@@ -109,12 +109,8 @@ export class Socket<
         const off = this.on(ev, ln);
 
         const count = this.subCount[ev] ?? 0;
-        if (count === 0) {
-            if (this.isSocketOpen) {
-                this.sendSubMessage(EvSubscribe, event);
-            } else {
-                this.qsubs[event] = true;
-            }
+        if (count === 0 && this.isSocketOpen) {
+            this.sendSubMessage(EvSubscribe, event);
         }
         this.subCount[ev] = count + 1;
 
@@ -124,8 +120,7 @@ export class Socket<
             const count = Math.max(0, (this.subCount[ev] ?? 0) - 1);
             if (count === 0) {
                 delete this.subCount[ev];
-                if (ev in this.qsubs) delete this.qsubs[event];
-                else this.sendSubMessage(EvUnsubscribe, event);
+                this.sendSubMessage(EvUnsubscribe, event);
             } else {
                 this.subCount[ev] = count;
             }
@@ -154,10 +149,11 @@ export class Socket<
     }
 
     private onOpen() {
-        for (const event in this.qsubs) {
-            this.sendSubMessage(EvSubscribe, event);
+        for (const event in this.subCount) {
+            if (this.subCount[event]! > 0) {
+                this.sendSubMessage(EvSubscribe, event);
+            }
         }
-        this.qsubs = {};
     }
 
     connect(url: string) {

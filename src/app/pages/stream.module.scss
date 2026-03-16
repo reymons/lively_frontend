@@ -1,0 +1,75 @@
+@use "@/styles/unit.scss";
+@use "@/styles/device.scss";
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: unit.rem(20);
+    margin: 0 auto unit.rem(24) auto;
+    max-width: 100%;
+    width: 70%;
+
+    @include device.mobile {
+        width: 100%;
+        gap: unit.rem(6);
+    }
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+}
+
+.live {
+    display: inline-block;
+    border-radius: 50%;
+    width: unit.rem(12);
+    height: unit.rem(12);
+    background-color: var(--color-red-400);
+    animation: pulse 2s infinite;
+    margin-left: unit.rem(12);
+    margin-top: 2px;
+
+    @include device.mobile {
+        width: unit.rem(8);
+        height: unit.rem(8);
+        margin-left: unit.rem(8);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
+
+.sk {
+    display: flex;
+    flex-direction: column;
+    gap: unit.rem(5);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.viewers {
+    display: flex;
+    align-items: center;
+    gap: unit.rem(10);
+    padding-top: unit.rem(3);
+
+    --flat-icon-size: #{unit.rem(24)};
+
+    @include device.mobile {
+        --flat-icon-size: #{unit.rem(16)};
+    }
+}

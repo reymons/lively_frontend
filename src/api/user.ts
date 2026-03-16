@@ -4,3 +4,7 @@ import { User } from "@/entities/user";
 export async function getCurrentUser() {
     return clientV1.get<User>("/users/current");
 }
+
+export async function getUserByUsername(username: string) {
+    return clientV1.get<User>(`/users/usernames/${username}`);
+}

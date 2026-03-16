@@ -31,7 +31,7 @@ export default function RegisterPage() {
                             can start streaming. Do not share this URL with anybody
                         </p>
                         <SecretDisplay
-                            base={`rtmps://${location.hostname}:1935/`}
+                            base={`rtmps://${location.hostname}:1935/live/`}
                             secret={sk}
                             visibleStart={6}
                             visibleEnd={5}
