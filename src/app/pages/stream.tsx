@@ -24,6 +24,11 @@ export default function StreamPage() {
     return (
         <main className="cnt">
             <div className={sl.main}>
+                <div className={sl.header}>
+                    <Heading username={username} />
+                    <Viewers userID={publicUser?.id} />
+                </div>
+                <StreamDisplay userId={publicUser?.id} />
                 {!!sk && user?.username === username && (
                     <div className={sl.sk}>
                         <p className="fs-lg fsm-sm">Your streaming URL</p>
@@ -35,11 +40,6 @@ export default function StreamPage() {
                         />
                     </div>
                 )}
-                <div className={sl.header}>
-                    <Heading username={username} />
-                    <Viewers userID={publicUser?.id} />
-                </div>
-                <StreamDisplay userId={publicUser?.id} />
             </div>
         </main>
     );
