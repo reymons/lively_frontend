@@ -1,0 +1,67 @@
+name: Deploy to github pagesc
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    environment: production
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install deps
+        run: |
+          npm -g install pnpm
+          pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+      - name: Test
+        run: pnpm test # TODO: create seprate jobs for linting and testing
+      - name: Build
+        env:
+          HTTP_CLIENT_BASE_URL: ${{ vars.HTTP_CLIENT_BASE_URL }}
+          SOCKET_CLIENT_BASE_URL: ${{ vars.SOCKET_CLIENT_BASE_URL }}
+          RTMP_BASE_URL: ${{ vars.RTMP_BASE_URL }}
+        run: pnpm build
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: ./dist
+      - name: Upload CNAME # Prevent CNAME deletion after the deployment on gh-pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: CNAME
+          path: ./CNAME 
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: ./_static
+      - name: Download CNAME
+        uses: actions/download-artifact@v4
+        with:
+          name: CNAME
+          path: .
+      - run: mv ./_static/index.html .
+      - run: mv ./_static/pages/* .
+      - run: ls -l
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
