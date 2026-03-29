@@ -1,0 +1,1 @@
+navigator.serviceWorker.register("/coop-coep.js").then(e=>{console.log("COOP/COEP servier worker has been registered with scope ",e.scope),navigator.serviceWorker.controller||location.reload()}).catch(e=>{console.error("Failed to register COOP/COEP servier worker: ",e)});
