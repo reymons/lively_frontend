@@ -59,6 +59,7 @@ jobs:
           path: .
       - run: mv ./_static/index.html .
       - run: mv ./_static/pages/* .
+      - run: mv ./_static/coop-coep-init.js ./_static/coop-coep.js .
       - run: ls -l
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
