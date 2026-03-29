@@ -7,12 +7,17 @@ const fastify = Fastify({ logger: true });
 
 fastify.register(FastifyCompress);
 
-const staticFilesTTL = 60 * 60 * 24 * 365; // 1 year
-
 fastify.register(FastifyStatic, {
     prefix: "/_static",
     root: path.resolve(__dirname, "..", "dist"),
-    maxAge: staticFilesTTL,
+    maxAge: 60 * 60 * 24 * 365, // 1 year
+});
+
+["coop-coep.js", "coop-coep-init.js"].forEach(jsFile => {
+    fastify.get("/" + jsFile, (_, reply) => {
+        reply.header("Content-Type", "application/javascript");
+        reply.sendFile(jsFile);
+    });
 });
 
 fastify.get("*", (_, reply) => reply.sendFile("index.html"));

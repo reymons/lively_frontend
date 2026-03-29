@@ -18,10 +18,9 @@
         "runtime": "automatic"
       }
     },
-    "target": "es6",
+    "target": "es2023",
     "loose": false,
-    "externalHelpers": false,
-    "keepClassNames": false
+    "externalHelpers": false
   },
   "minify": false
 }

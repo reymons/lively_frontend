@@ -4,6 +4,7 @@ import HtmlPlugin from "html-webpack-plugin";
 import CssExtractPlugin from "mini-css-extract-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
+import CopyPlugin from "copy-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import { Configuration as DevServerCfg } from "webpack-dev-server";
 import { getCssClass } from "./util";
@@ -44,7 +45,7 @@ const cssBaseLoaders = [
 
 // TODO: separate dev and prod configs
 const cfg: Configuration & { devServer: DevServerCfg } = {
-    entry: path.join(rootDir, "src", "app", "index.tsx"),
+    entry: [path.join(rootDir, "src", "app", "index.tsx")],
     output: {
         path: outputDir,
         clean: true,
@@ -56,6 +57,13 @@ const cfg: Configuration & { devServer: DevServerCfg } = {
     },
     module: {
         rules: [
+            {
+                test: /\.worklet\.ts$/,
+                loader: "worklet-loader",
+                options: {
+                    name: "chunks/js/[name].[contenthash].js",
+                },
+            },
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
@@ -119,6 +127,10 @@ const cfg: Configuration & { devServer: DevServerCfg } = {
         static: outputDir,
         historyApiFallback: true,
         compress: true,
+        headers: {
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+        },
     },
     experiments: !isDev
         ? undefined
@@ -151,6 +163,9 @@ if (!isDev) {
             outDir: "pages",
             pages: appCfg.pages,
             htmlFilename,
+        }),
+        new CopyPlugin({
+            patterns: [{ from: path.join(rootDir, "prerun"), to: "." }],
         })
     );
 
@@ -187,6 +202,7 @@ if (!isDev) {
             },
         },
         minimizer: [
+            "...",
             new ImageMinimizerPlugin({
                 generator: [
                     {

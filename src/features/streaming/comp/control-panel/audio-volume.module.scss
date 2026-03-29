@@ -1,0 +1,12 @@
+.wrapper {
+    display: inline-flex;
+    gap: 10px;
+
+    &:hover .range-wrapper {
+        display: inline-flex;
+    }
+}
+
+.range-wrapper {
+    display: none;
+}

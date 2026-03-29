@@ -7,7 +7,7 @@ import jest from "eslint-plugin-jest";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-    globalIgnores(["./dist/*", "jest.config.js"]),
+    globalIgnores(["./dist/*", "jest.config.js", "globals.d.ts", "./prerun/*"]),
     eslint.configs.recommended,
     tseslint.configs.recommended,
     react.configs.flat.recommended,

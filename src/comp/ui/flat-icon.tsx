@@ -8,7 +8,9 @@ type FlatIconType =
     | "eye-target"
     | "lock"
     | "lock-unlocked"
-    | "copy";
+    | "copy"
+    | "volume"
+    | "volume-muted";
 
 type Props = {
     type: FlatIconType;
