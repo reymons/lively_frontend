@@ -37,7 +37,8 @@ export class MetaData {
         return this._audioDataRate;
     }
 
-    decode(data: Uint8Array<ArrayBuffer>) {
+    fromPacket(packet: Packet) {
+        const data = packet.data;
         const view = new DataView(data.buffer, data.byteOffset, data.byteLength);
         this._videoWidth = view.getUint16(0);
         this._videoHeight = view.getUint16(2);
@@ -49,11 +50,15 @@ export class MetaData {
     }
 }
 
+const Flag = Object.freeze({
+    KeyFrame: 1,
+});
+
 export class Packet {
     private _type = 0;
     private _timestamp = 0;
     private _data: Uint8Array<ArrayBuffer> | null = null;
-    private _isKeyFrame = false;
+    private _flags = 0;
 
     get type() {
         return this._type;
@@ -67,16 +72,15 @@ export class Packet {
         return this._data ?? new Uint8Array();
     }
 
-    get isKeyFrame() {
-        return this._isKeyFrame;
+    get isKeyFrame(): boolean {
+        return (this._flags & Flag.KeyFrame) !== 0;
     }
 
     decode(data: Uint8Array<ArrayBuffer>) {
         const view = new DataView(data.buffer, data.byteOffset, data.byteLength);
-        const flags = view.getUint8(0);
-        this._type = (flags & 0b11111110) >> 1;
-        this._isKeyFrame = Boolean(flags & 0b00000001);
-        this._timestamp = view.getUint32(1);
-        this._data = data.subarray(5);
+        this._type = view.getUint8(0);
+        this._flags = view.getUint8(1);
+        this._timestamp = view.getUint32(2);
+        this._data = data.subarray(6);
     }
 }

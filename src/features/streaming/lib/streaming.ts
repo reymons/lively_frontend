@@ -302,7 +302,7 @@ export class StreamingAPI {
     }
 
     private async onMetaData(packet: Packet) {
-        this.metaData.decode(packet.data);
+        this.metaData.fromPacket(packet);
         this.audio.configure(this.metaData.audioSampleRate);
         this.video.channel.sendMetaData({
             width: this.metaData.videoWidth,
